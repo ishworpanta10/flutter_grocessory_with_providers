@@ -28,8 +28,11 @@ class GroceryListScreen extends StatelessWidget {
             background: Container(
               color: Colors.red,
               alignment: Alignment.centerRight,
-              child: const Icon(Icons.delete_forever,
-                  color: Colors.white, size: 50.0),
+              child: const Icon(
+                Icons.delete_forever,
+                color: Colors.white,
+                size: 50.0,
+              ),
             ),
             onDismissed: (direction) {
               manager.deleteItem(index);
