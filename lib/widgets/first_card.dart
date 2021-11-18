@@ -31,7 +31,7 @@ class FirstCard extends StatelessWidget {
         child: Stack(
           children: [
             Text(
-              "Editor\'s Choice",
+              "Editor's Choice",
               style: CustomTheme.darkTextTheme.bodyText1,
             ),
             Positioned(

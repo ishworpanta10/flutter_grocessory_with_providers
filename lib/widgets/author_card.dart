@@ -3,7 +3,7 @@ import 'package:flutter_website_clone/theme/custom_theme.dart';
 
 import 'circle_avatar.dart';
 
-class AuthorCard extends StatelessWidget {
+class AuthorCard extends StatefulWidget {
   final String authorName;
   final String title;
   final ImageProvider? imageProvider;
@@ -16,6 +16,13 @@ class AuthorCard extends StatelessWidget {
   }) : super(key: key);
 
   @override
+  State<AuthorCard> createState() => _AuthorCardState();
+}
+
+class _AuthorCardState extends State<AuthorCard> {
+  bool _isFav = false;
+
+  @override
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.all(16),
@@ -26,7 +33,7 @@ class AuthorCard extends StatelessWidget {
             child: Row(
               children: [
                 CircleImage(
-                  imageProvider: imageProvider,
+                  imageProvider: widget.imageProvider,
                   imageRadius: 28,
                 ),
                 const SizedBox(width: 8),
@@ -35,11 +42,11 @@ class AuthorCard extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        authorName,
+                        widget.authorName,
                         style: CustomTheme.lightTextTheme.headline2,
                       ),
                       Text(
-                        title,
+                        widget.title,
                         style: CustomTheme.lightTextTheme.headline3,
                       )
                     ],
@@ -49,11 +56,19 @@ class AuthorCard extends StatelessWidget {
             ),
           ),
           IconButton(
-            icon: const Icon(Icons.favorite_border),
+            icon:
+                Icon(_isFav ? Icons.favorite_outlined : Icons.favorite_border),
             iconSize: 30,
-            color: Colors.white,
+            color: Colors.red[400],
             onPressed: () {
-              const snackBar = SnackBar(content: Text('Favorite Pressed'));
+              setState(() {
+                _isFav = !_isFav;
+              });
+              final snackBar = SnackBar(
+                duration: const Duration(milliseconds: 300),
+                content: Text(
+                    _isFav ? 'Added to Favorite' : 'Remove from favourite'),
+              );
               ScaffoldMessenger.of(context).showSnackBar(snackBar);
             },
           ),
